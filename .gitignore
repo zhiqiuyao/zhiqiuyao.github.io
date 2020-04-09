@@ -2,7 +2,7 @@
 .vscode
 .idea
 
-public
+/public
 dist
 
 /node_modules
