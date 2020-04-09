@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>使用 Promise、Async/Await组合来更好的异步编程 | 知行</title>
+    <meta name="description" content="在 Async/Await 大行其道的今天，是否还有 Promise 的用武之地？答案是肯定的">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.b95e0445.css" as="style"><link rel="preload" href="/assets/js/app.5127f735.js" as="script"><link rel="preload" href="/assets/js/8.a5bc50fc.js" as="script"><link rel="preload" href="/assets/js/2.ea510650.js" as="script"><link rel="preload" href="/assets/js/1.39a8614a.js" as="script"><link rel="preload" href="/assets/js/12.c52c5554.js" as="script"><link rel="prefetch" href="/assets/js/10.972c8981.js"><link rel="prefetch" href="/assets/js/11.01df83ff.js"><link rel="prefetch" href="/assets/js/13.46e0e5ad.js"><link rel="prefetch" href="/assets/js/14.1d4aee28.js"><link rel="prefetch" href="/assets/js/3.979a373b.js"><link rel="prefetch" href="/assets/js/6.576ae57d.js"><link rel="prefetch" href="/assets/js/7.c1d7ea3a.js"><link rel="prefetch" href="/assets/js/9.19a0e66b.js"><link rel="prefetch" href="/assets/js/vuejs-paginate.84895b4f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b95e0445.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">知行</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/about.html" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://github.com/zhiqiuyao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/about.html" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://github.com/zhiqiuyao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>使用 Promise、Async/Await组合来更好的异步编程</span> <!----></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Async/Await 语法使得编写异步代码易读、易写。但我们仍然在某些场景需要使用到<code>Promise.all()</code>。假设我们实现“根据书名获取它的作者和评分”的逻辑。</p> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token function-variable function">getBook</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token parameter">bookName</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> book <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetchBook</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> author <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetchAuthor</span><span class="token punctuation">(</span>book<span class="token punctuation">.</span>authorId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> rating <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetchRating</span><span class="token punctuation">(</span>book<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>book<span class="token punctuation">,</span>
+        author<span class="token punctuation">,</span>
+        rating
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token function">getBook</span><span class="token punctuation">(</span><span class="token string">'JavaScript语言精粹'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>上面的代码看起来非常整洁，但执行起来情况如何呢？</p> <ul><li>fetchBook: 1 s</li> <li>fetchAuthor: 1 s</li> <li>fetchRating: 1 s</li> <li>Total: 3 s</li></ul> <p>由于<code>fetchBook</code>-&gt;<code>fetchAuthor</code>-&gt;<code>fetchRating</code>的串行请求，不难发现上面的代码执行起来有些耗时。
+<code>fetchAuthor</code>和<code>fetchRating</code>两个函数应该并行请求，来达到最少耗时。</p> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token function-variable function">getBook</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token parameter">bookName</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> book <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetchBook</span><span class="token punctuation">(</span>bookName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+        <span class="token function">fetchAuthor</span><span class="token punctuation">(</span>book<span class="token punctuation">.</span>authorId<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">fetchRating</span><span class="token punctuation">(</span>book<span class="token punctuation">.</span>id<span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">results</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+            <span class="token operator">...</span>book<span class="token punctuation">,</span>
+            author<span class="token operator">:</span> results<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            rating<span class="token operator">:</span> results<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>现在获取作者和评分并行进行了，请求耗时：</p> <ul><li>fetchBook: 1 s</li> <li>(fetchAuthor/fetchRating): 1 s</li> <li>Total: 2 sec</li></ul> <p>此时代码仍然有优化空间</p> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token function-variable function">getBook</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token parameter">bookName</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> book <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetchBook</span><span class="token punctuation">(</span>bookName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>author<span class="token punctuation">,</span> rating<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+        <span class="token function">fetchAuthor</span><span class="token punctuation">(</span>book<span class="token punctuation">.</span>authorId<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">fetchRating</span><span class="token punctuation">(</span>book<span class="token punctuation">.</span>id<span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>book<span class="token punctuation">,</span>
+        author<span class="token punctuation">,</span>
+        rating
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>看！我们使用<code>Promise.all()</code>和数组的<code>解构</code>特性对第一版代码的性能、可读性进行了提高。</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div> <!----></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.5127f735.js" defer></script><script src="/assets/js/8.a5bc50fc.js" defer></script><script src="/assets/js/2.ea510650.js" defer></script><script src="/assets/js/1.39a8614a.js" defer></script><script src="/assets/js/12.c52c5554.js" defer></script>
+  </body>
+</html>
