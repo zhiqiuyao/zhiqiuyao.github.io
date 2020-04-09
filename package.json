@@ -1,0 +1,26 @@
+{
+  "name": "zhiqiuyao.github.io",
+  "version": "1.0.0",
+  "description": "Personal technology blog",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhiqiuyao/zhiqiuyao.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhiqiuyao/zhiqiuyao.github.io/issues"
+  },
+  "homepage": "https://github.com/zhiqiuyao/zhiqiuyao.github.io#readme",
+  "dependencies": {
+    "@vuepress/plugin-back-to-top": "^1.4.0",
+    "@vuepress/plugin-blog": "^1.9.2",
+    "vuepress": "^1.4.0"
+  }
+}

@@ -1,0 +1,8 @@
+.sass-cache
+.vscode
+.idea
+
+public
+dist
+
+/node_modules

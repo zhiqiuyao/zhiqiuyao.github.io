@@ -1,0 +1,78 @@
+@require './config'
+@import '~prismjs/themes/prism-okaidia.css'
+
+html,
+body {
+  background: url(/images/body-background.png) #eae6d1;
+}
+
+body {
+  font-family: Lantinghei SC;
+  .navbar {
+    background: url(/images/background.png) $accentColor;
+    border-bottom: none;
+    box-shadow: 1px 0px 2px rgba(0, 0, 0, .75);
+    -webkit-font-smoothing: antialiased;
+
+    .site-name {
+      color: #f3f3f3;
+      text-shadow: 0px 2px 0px #235796;
+    }
+
+    .sidebar-button {
+      color #f3f3f3;
+    }
+
+    .links {
+      background transparent;
+    }
+
+    .nav-links {
+      a,
+      a:hover {
+        color: #f3f3f3;
+      }
+    }
+  }
+
+  a.sidebar-link.active {
+    border-left: none;
+  }
+}
+
+blockquote {
+  border-left: 1px solid #ffcc00;
+  margin: 0;
+  padding: 0 0 0 20px;
+  font-style: italic;
+}
+
+.theme-default-content {
+  &.content__default {
+    margin-top: 80px;
+  }
+
+  &:not(.custom) {
+    margin-top: 80px;
+
+    & > *:first-child {
+      margin-top: 0;
+    }
+  }
+  background: #fbfbfb;
+  border-radius: 3px;
+  border: 1px solid #cbcbcb;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, .09), inset 0px 0px 2px 2px rgba(255, 255, 255, .5), inset 0 0 5px 5px rgba(255, 255, 255, .4);
+}
+
+.page {
+  padding-left: 0;
+}
+
+@media (min-width: $MQNarrow)
+  .sidebar
+    left: 50%;
+    transform: translateX(-730px);
+    background: transparent;
+    text-align: right;
+    border-right: none;
