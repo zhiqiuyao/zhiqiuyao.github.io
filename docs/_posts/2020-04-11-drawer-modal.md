@@ -1,12 +1,15 @@
 ---
-Title: 如何实现一个抽屉式弹窗
-Date: Sat Apr 11 2020 21:54:04 GMT+0800 (中国标准时间)
-Tags: react
+title: 如何实现一个抽屉式弹窗
+date: Sat Apr 11 2020 21:54:04 GMT+0800 (中国标准时间)
+tags: react
 ---
 
 最近工作中接到了一个任务式需要实现一个抽屉弹窗。如下图所示：
 
-<video src="./media/drawer-effect-modal.mp4"></video>
+<video width="100%" controls>
+  <source src="./media/drawer-effect-modal.mp4"  type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 现在我把实现过程记录下来。
 
