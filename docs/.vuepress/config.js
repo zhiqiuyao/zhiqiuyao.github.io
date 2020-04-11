@@ -3,6 +3,7 @@ module.exports = {
     description: '个人技术博客',
     plugins: [
         '@vuepress/back-to-top',
+        '@vuepress/search',
         [
             '@vuepress/blog',
             {

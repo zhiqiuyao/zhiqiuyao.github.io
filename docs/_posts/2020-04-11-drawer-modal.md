@@ -1,12 +1,11 @@
 ---
-title: 如何实现一个抽屉式弹窗
+title: "如何实现一个抽屉式弹窗"
 date: Sat Apr 11 2020 21:54:04 GMT+0800 (中国标准时间)
-tags: react
 ---
 
 最近工作中接到了一个任务式需要实现一个抽屉弹窗。如下图所示：
 
-<video width="100%" controls>
+<video width="100%">
   <source src="./media/drawer-effect-modal.mp4"  type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -15,7 +14,7 @@ tags: react
 
 从视频中可以看到弹窗是从左到右的抽屉效果，我采用 `react-transition-group` 来实现这个过渡效果。这个库本身不对样式进行动画处理，它把过渡阶段交给用户，而且它的性能开销极小。
 
-### Step1: 实现弹窗基本结构
+## Step1: 实现弹窗基本结构
 
 我们把弹窗的显/隐状态交给外部去控制，定义 props 为 visible，弹窗内部需要一个关闭按钮，这样还需要一个props 为 onClose 去通知父组件关闭弹窗
 

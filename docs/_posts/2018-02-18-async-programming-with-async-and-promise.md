@@ -2,7 +2,6 @@
 title:  "使用 Promise、Async/Await组合来更好的异步编程"
 description: "在 Async/Await 大行其道的今天，是否还有 Promise 的用武之地？答案是肯定的"
 date:  Sat Feb 17 2020 17:21:40 GMT+0800 (CST)
-tags: js
 ---
 
 Async/Await 语法使得编写异步代码易读、易写。但我们仍然在某些场景需要使用到`Promise.all()`。假设我们实现“根据书名获取它的作者和评分”的逻辑。
